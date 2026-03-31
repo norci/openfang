@@ -16,9 +16,8 @@ Unlike traditional search APIs, SearXNG:
 
 ## Using the SearXNG Tool
 
-**search_searxng(query, category?, max_results?, page?)**
-- `query`: The search string (supports `site:`, quotes, boolean)
-- `category`: Filter by search category (default: `general`)
+**search_searxng(query, max_results?, page?)**
+- `query`: The search string with optional `!category` prefix (see Syntax below)
 - `max_results`: Number of results to return (default: 10)
 - `page`: Page number for pagination
 
@@ -49,22 +48,47 @@ Unlike traditional search APIs, SearXNG:
 
 ## Search Syntax
 
-- **Category targeting**: `!engine` prefix searches a specific engine (e.g., `!wikipedia rust`)
+### Category Targeting with `!category` Prefix
+
+Prefix the query with `!category` to search within a specific category:
+
+| Prefix | Category | Example Query |
+|--------|----------|---------------|
+| `!general` | General web search | `!general rust programming` |
+| `!images` | Visual content | `!images cat pictures` |
+| `!news` | Current events | `!news technology 2026` |
+| `!videos` | Video results | `!videos music concert` |
+| `!it` | Programming/docs | `!it rust async` |
+| `!science` | Academic/research | `!science quantum computing` |
+| `!q&a` | Forums/Q&A | `!q&a stackoverflow error` |
+| `!files` | File downloads | `!files linux iso` |
+| `!maps` | Locations | `!maps san francisco` |
+| `!social media` | Social posts | `!social media open source` |
+| `!wikimedia` | Wikipedia/Wiki | `!wikimedia rust language` |
+| `!translate` | Translation | `!translate hello spanish` |
+| `!weather` | Weather | `!weather tokyo` |
+| `!currency` | Exchange rates | `!currency usd eur` |
+
+**Without a prefix**, SearXNG defaults to `general` search.
+
+### Additional Syntax
+
+- **Engine targeting**: `!engine` can also target specific search engines (e.g., `!google rust`, `!ddg rust`)
 - **Site search**: `site:example.com query`
 - **Exact phrases**: `"exact match"`
-- **Time filters**: Append `&engines=...time_range=day` if the instance supports it
+- **Time filters**: Use category filters (e.g., news for recent) rather than time parameters
 
 ## Best Practices
 
 - **Prefer SearXNG** for privacy-sensitive searches or when no API keys are configured
-- **Specify category** when the search intent is clear (news, images, it, etc.)
+- **Use `!category` prefix** when the search intent is clear (e.g., `!news`, `!images`, `!it`)
 - **Use `list_searxng_categories()`** to discover what the configured instance supports before searching
 - **Instance selection**: Choose a well-maintained public instance or self-host for maximum privacy
 
 ## Common Use Cases
 
-- Privacy-sensitive research: `category=general`
-- Finding documentation: `category=it` with `site:docs.rust-lang.org`
-- Current events: `category=news` with year in query
-- Visual references: `category=images`
-- Community answers: `category=q&a`
+- Privacy-sensitive research: `!general rust latest` (or just `rust latest`)
+- Finding documentation: `!it rust async await`
+- Current events: `!news technology 2026`
+- Visual references: `!images architecture diagram`
+- Community answers: `!q&a rust error handling`
