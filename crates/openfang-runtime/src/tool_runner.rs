@@ -241,8 +241,9 @@ pub async fn execute_tool(
         "list_searxng_categories" => {
             if let Some(ctx) = web_ctx {
                 match ctx.search.list_searxng_categories().await {
-                    Ok(categories) => Ok(serde_json::to_string(&categories)
-                        .unwrap_or_else(|_| "[]".to_string())),
+                    Ok(categories) => {
+                        Ok(serde_json::to_string(&categories).unwrap_or_else(|_| "[]".to_string()))
+                    }
                     Err(e) => Err(e),
                 }
             } else {

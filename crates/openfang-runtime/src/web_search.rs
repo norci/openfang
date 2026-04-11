@@ -343,10 +343,7 @@ impl WebSearchEngine {
                 "{}/search",
                 self.config.searxng.url.trim_end_matches('/')
             ))
-            .query(&[
-                ("q", query),
-                ("format", "json"),
-            ])
+            .query(&[("q", query), ("format", "json")])
             .header("User-Agent", "Mozilla/5.0 (compatible; OpenFangAgent/0.1)")
             .send()
             .await
